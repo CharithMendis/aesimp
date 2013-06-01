@@ -11,10 +11,10 @@ CFLAGS= -m32 -DBUILD_32 -I $(IDIR)
 
 LIBS=-lm
 
-_DEPS = aeskeyex.h aessub.h aescipher.h aesdecipher.h
+_DEPS = aeskeyex.h aescipher.h aesdecipher.h aessub.h aeshelper.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = aeskeyex.o aescipher.o aesdecipher.o aessub.o main.o 
+_OBJ = aeskeyex.o aescipher.o aesdecipher.o aessub.o aeshelper.o main.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 PRODUCT = $(EDIR)/aes

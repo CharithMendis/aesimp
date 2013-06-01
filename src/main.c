@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include "aeskeyex.h"
 #include "aescipher.h"
+#include "aesdecipher.h"
 
 keycontext_t * initializeKey(){
 	
@@ -51,7 +52,7 @@ memblock_t * prepareInput(char * filename){
 		unsigned char sampleSize = 16;
 		unsigned char * mem = (unsigned char *)malloc(sizeof(unsigned char)*sampleSize);
 		//enter the values manually
-		mem[0] = 0x32;
+		mem[0] = 0x12;
 		mem[1] = 0x43;
 		mem[2] = 0xf6;
 		mem[3] = 0xa8;
@@ -102,13 +103,20 @@ int main(){
 	uint32 * word = keyExpand(keycon,nr,nb);
 	checkSuccess(word);
 
+	//cipher
 	memblock_t * input = prepareInput(NULL);
 	memblock_t * output = prepareOutput(input);
 
 	cipher(input,output,word,nb,nr);
+	
+	//decipher
+	memblock_t * outputDecipher = prepareOutput(input);
+	
+	decipher(output,outputDecipher,word,nb,nr);
 
 	//cleaning up
 	free(input);
+	free(outputDecipher);
 	free(output);
 	free(keycon);
 	free(word);

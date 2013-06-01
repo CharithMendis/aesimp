@@ -127,28 +127,6 @@ void gmix_columnTable(unsigned char *r){
  }
  
  
- 
- void cipher_block(unsigned char * state,uint32 * word,uint32 nb,uint32 nr){
- 
-	addRoundKey(state,word,0,nb);
-	
-	int round;
-	for(round = 1;round < nr;round++){
-		subBytes(state,nb);
-		shiftRows(state,nb);
-		mixColumns(state,nb);
-		addRoundKey(state,word,round,nb);
-	}
-	
-	subBytes(state,nb);
-	shiftRows(state,nb);
-	addRoundKey(state,word,round,nb);
-	
-	printState(state,nb);
-	
-
- }
- 
  void transpose(unsigned char * state,uint32 nb){
 	unsigned char * cpy = (unsigned char *)malloc(4*nb);
 	memcpy(cpy,state,4*nb);
@@ -167,21 +145,4 @@ void gmix_columnTable(unsigned char *r){
 	
  }
  
- //the main should give space for the output already allocated - no support for blocks having lengths not multiples of 128 bits
- //simple chaning mode is presented
- void cipher(memblock_t * input,memblock_t * output,uint32 * word,uint32 nb,uint32 nr){
-	
-	unsigned int blockSize = 4*nb;
-	unsigned int noOfBlocks = (input->size)/blockSize;
-	int i=0;
-	for(i=0;i<noOfBlocks;i++){
-		unsigned char * state = (unsigned char *)malloc(blockSize);
-		memcpy(state,(input->mem) + i*blockSize,blockSize); 
-		transpose(state,nb);
-		cipher_block(state,word,nb,nr);
-		memcpy((output->mem) + i*blockSize,state,blockSize);
-		free(state);
-	}
-	
- }
  

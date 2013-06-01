@@ -9,10 +9,10 @@ CFLAGS=-Wall -m32 -DBUILD_32 -I $(IDIR)
 
 LIBS=-lm
 
-_DEPS = 
+_DEPS = aeskeyex.h aessbox.h aessub.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
-_OBJ = aeskeyex.o main.o
+_OBJ = aeskeyex.o aescipher.o aesdecipher.o aessub.o main.o 
 OBJ = $(patsubst %,$(ODIR)/%,$(_OBJ))
 
 PRODUCT = $(EDIR)/aes

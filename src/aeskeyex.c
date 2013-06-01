@@ -4,9 +4,6 @@
 #include "aeskeyex.h"
 #include "aessub.h"
 
-#define LEFTROT(x,base,i) (( x << i) | (x >> (base - i)))
-#define RotWord(x) LEFTROT(x,32,8)
-
 //#define DEBUG
 
 uint32 Rcon(const unsigned int x){
@@ -52,8 +49,7 @@ uint32 * keyExpand(keycontext_t * keycon,const uint32 nr,const uint32 nb){
 		word[i] = word[i - keycon->nk] ^ temp;
 		i++;
 	}
-	
-	
+
 	#ifdef DEBUG
 	for(i=0;i<nb*(nr+1);i++){
 		printf("%x\n",word[i]);
@@ -61,5 +57,17 @@ uint32 * keyExpand(keycontext_t * keycon,const uint32 nr,const uint32 nb){
 	#endif
 	
 	return word;
+}
+
+
+
+
+
+void printTheFile(){
+	
+	unsigned char ch[] = {0x12,0x34,0x56,0x78};
+	unsigned int * val = ch;
+	printf("%x\n",*val);
+	
 }
 

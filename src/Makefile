@@ -5,11 +5,13 @@ LDIR =../lib
 EDIR = ../exec
 
 CC=gcc
-CFLAGS=-Wall -m32 -DBUILD_32 -I $(IDIR)
+CFLAGS= -m32 -DBUILD_32 -I $(IDIR)
+
+#-Wall
 
 LIBS=-lm
 
-_DEPS = aeskeyex.h aessbox.h aessub.h
+_DEPS = aeskeyex.h aessub.h aescipher.h aesdecipher.h
 DEPS = $(patsubst %,$(IDIR)/%,$(_DEPS))
 
 _OBJ = aeskeyex.o aescipher.o aesdecipher.o aessub.o main.o 
